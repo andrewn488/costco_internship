@@ -9,12 +9,80 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-*In no more than 500 words, please describe why you are interested in applying for the Costco Winter IT Intern Program, what you expect to gain from participating in the program and how it may impact your future goals. Please include one or more examples of how you have already applied your skills, other than as a classroom assignment. 
+Ian D. Duggan
+Sr. IT Recruiter / IT Internship Program Manager
+Costco Wholesale IT & Logistics
+Issaquah, WA
+March 24, 2022
 
-Dear Costco,
+Dear Mr. Duggan,
 
+My name is Andrew Nalundasan, and I am interested in helping Costco’s Business Intelligence & Analytics (BI&A) team to solve complex problems and add value to the company as a summer intern. I learned about this opportunity through my classmate, Malou Leonardo, as well as a previous intern, Swathi Bangalore Madhuranath. The way they spoke to me about their experience and the culture at Costco motivated me to apply for this position. I am in the process of doing a “career pivot” into the analytics space, and this opportunity will equip me with a robust foundation of skills and tools to begin building my career in this industry. I am eager to apply the concepts and processes I’ve learned in the classroom into practice to help Costco make data driven decisions. 
 
+I’ve been a management consultant in the Environmental, Health, & Safety (EHS) space for nearly a decade before I decided to return to school to seek my graduate degree in Business Analytics. I will be able to apply the verbal and written communication skills I developed as a consultant to this internship. My future goal is to be a “data bridge”, where I work closely with both technical and business stakeholder groups and help translate the needs of the different teams to operate as one cohesive unit. I believe that my background in consulting paired with my education in business analytics and experience gained through this role will help me to achieve these aspirations.  
 
-Sincerely,
+In my Data Visualization class, I learned the science behind what makes a good graphic and how to be an effective storyteller. I applied the concepts I learned in this class at my best friend’s wedding, while delivering my best man’s speech. Although I didn’t have visual aids, I was able to engage the audience by painting a picture of data points of my friendship with the couple to help me trigger laughs and happy tears during my speech. Through this class, I’ve realized that data is everywhere and is essential to captivating an audience and being an effective storyteller.    
+
+I appreciate this opportunity for a summer internship with Costco and I believe I can help the company enhance its BI&A capabilities. I’d love to further discuss how my previous success in consulting can help Costco to achieve these goals. 
+
+Kind Regards,
 
 Andrew Nalundasan
+
+
+# Practice dataframe for Bosanko
+
+```{r}
+# Test data for time data
+
+df <- tribble(
+ ~hh, ~wpa, ~wps, ~t1, ~t2, ~t3,
+ 1, 1, 1, 1, 0, 0,
+ 1, 2, 1, 0, 1, 1,
+ 1, 3, 1, 0, 0, 0,
+ 2, 1, 1, 1, 1, 0,
+ 2, 2, 2, 0, 1, 0,
+ 2, 3, 1, 0, 0, 1,
+ 3, 1, 1, 0, 0, 1,
+ 3, 2, 1, 1, 0, 0,
+ 3, 3, 2, 1, 1, 0
+)
+
+df
+
+# Single variable example
+df %>% 
+  group_by(hh) %>% 
+  mutate(
+    t1 = case_when(
+      sum(t1) > 1 & wps == 2 ~ 0,
+      TRUE ~ t1
+    )
+  )
+
+
+# Using across to perform on selected columns
+df %>% 
+  group_by(hh) %>% 
+  mutate(
+    across(t1:t3, 
+    ~case_when(
+      sum(.x) > 1 & wps == 2 ~ 0,
+      TRUE ~ .x
+    )
+  )
+  )
+```
+
+
+
+```{r}
+data <- iris
+
+data
+
+data %>% 
+  group_by(Species) %>% 
+  summarise(sum(Sepal.Length))
+```
+
